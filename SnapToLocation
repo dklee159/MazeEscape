@@ -1,0 +1,53 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SnapToLocation : MonoBehaviour
+{
+    private bool grabbed;
+    private bool insideSnapZone;
+    public bool Snapped;
+    public GameObject SnapRotationReference;
+    Transform tr;
+    OVRGrabbable grabbable;
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Grabbable"|| other.tag=="Sword"||other.tag=="Light")
+        {
+            insideSnapZone = true;
+            tr = other.gameObject.GetComponent<Transform>();
+            grabbable = other.gameObject.GetComponent<OVRGrabbable>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Grabbable" || other.tag == "Sword" || other.tag == "Light")
+        {
+            insideSnapZone = false;
+        }
+    }
+
+    void SnapObject()
+    {
+        if(grabbed==false && insideSnapZone == true)
+        {
+
+            tr.position = transform.position;
+            tr.rotation = SnapRotationReference.transform.rotation;
+            Snapped = true;
+        }
+    }
+   // Update is called once per frame
+    void Update()
+    {
+        if (insideSnapZone == true)
+        {
+            grabbed = grabbable.GetComponent<OVRGrabbable>().isGrabbed;
+            SnapObject();
+        }
+       
+    }
+}
