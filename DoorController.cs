@@ -13,11 +13,6 @@ public class DoorController : MonoBehaviour
     }
     public void OpenClose()
     {
-        /*if (lockedByPassword)
-        {
-            Debug.Log("Locked by password");
-            return;
-        }*/
         if(!lockedByPassword)
             anim.SetTrigger("Open");
     }
