@@ -1,0 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AltarScripts : MonoBehaviour
+{
+    [SerializeField]
+    GameObject GateWall;
+    [SerializeField]
+    GameObject Tablet;
+
+    //bool isOpened = false;
+    bool tabletTrig = false;
+    AltarScripts altar_scripts;
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Grabbable")
+        {
+            //GateWall.SetActive(false);
+            tabletTrig = true;
+
+            if (altar_scripts.tabletTrig == true)
+            {
+                GateWall.SetActive(false);
+            }
+        }
+    }
+       // Start is called before the first frame update
+    void Start()
+    {
+        //Tablet = FindObjectOfType<GameObject>();
+        altar_scripts = Tablet.GetComponent<AltarScripts>();
+    }
+}
